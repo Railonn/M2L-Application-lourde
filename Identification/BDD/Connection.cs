@@ -20,7 +20,7 @@ namespace Identification.BDD
         public static void Init()
         {
             connect = new MySqlConnection();
-            //connect.ConnectionString = "SERVER = 127.0.0.1; DATABASE=fredi; UID=root; PASSWORD= ";
+            //connect.ConnectionString = "SERVER = 127.0.0.1; DATABASE=FREDI; UID=root; PASSWORD= ";
             //connect.ConnectionString = "SERVER=172.16.106.4; DATABASE=FREDI; UID=william; PASSWORD=3568";                  
         }
 
