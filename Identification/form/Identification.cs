@@ -39,7 +39,7 @@ namespace Identification
         {
             Gestion frmGestion = new Gestion();
             Hide();
-            frmGestion.ShowDialog();
+            frmGestion.Show();
         }
         
         // Permet à l'utilisateur de fermer correctement l'application
