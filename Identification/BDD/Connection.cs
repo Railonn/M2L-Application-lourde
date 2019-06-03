@@ -20,12 +20,11 @@ namespace Identification.BDD
         public static void Init()
         {
             connect = new MySqlConnection();
-            //connect.ConnectionString = "SERVER = 127.0.0.1; DATABASE=FREDI; UID=root; PASSWORD= ";
             //connect.ConnectionString = "SERVER=172.16.106.4; DATABASE=FREDI; UID=william; PASSWORD=3568";                  
         }
 
         /// <summary>
-        /// Connecion a l'application
+        /// Connexion à l'application
         /// </summary>
         /// <param name="login">login de connexion</param>
         /// <param name="mdp">mot de passe de connexion</param>
@@ -55,9 +54,8 @@ namespace Identification.BDD
                 }
             }
 
-            // Fermeture de la connexion
+            // Fermeture de la connexion et retourne un booléen
             connect.Close();
-
             return mdpOk;
         }
 
