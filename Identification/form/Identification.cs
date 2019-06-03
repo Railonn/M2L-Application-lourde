@@ -30,7 +30,7 @@ namespace Identification
             if (Connection.MdpConnection(txtLogin.Text, txtMdp.Text))
                 this.OpenGestion();
             else
-                MessageBox.Show("Vos identifiant sont erronés.", "Connection impossible", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Vos identifiant sont erronés.", "Connexion impossible", MessageBoxButtons.OK, MessageBoxIcon.Error);
     
         }
 
