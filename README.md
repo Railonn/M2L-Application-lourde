@@ -2,7 +2,7 @@
 
 Application réalisée par DECHAMPS William et DESSERICH Loïc.<br>
 Développée en C# sur Microsoft Visual Studio.<br>
-Base de données hébergée par un serveur distant, MYSQL et requêtes en SQL.<br>
+Base de données hébergée sur un serveur distant, MYSQL et requêtes en SQL.<br>
 
 Modifications apportées à ce projet:
 
