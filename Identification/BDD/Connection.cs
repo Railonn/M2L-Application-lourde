@@ -57,9 +57,8 @@ namespace Identification.BDD
                 }
             }
 
-            //fermeture de la connexion
+            // Fermeture de la connexion et retourne un booléen
             connect.Close();
-
             return mdpOk;
         }
 
