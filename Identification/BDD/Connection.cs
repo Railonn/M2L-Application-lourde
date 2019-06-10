@@ -23,7 +23,6 @@ namespace Identification.BDD
         {
             connect = new MySqlConnection
             {
-                //ConnectionString = "SERVER =172.16.106.4; DATABASE=FREDI; UID=loic; PASSWORD=3568"
                 ConnectionString = "SERVER=127.0.0.1; DATABASE=fredi; UID=root; PASSWORD="
             };
 

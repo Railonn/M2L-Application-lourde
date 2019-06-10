@@ -10,3 +10,5 @@ Modifications apportées à ce projet:
     Authentification d'un trésorier
     Consultation des demandes de remboursements
     Validation des demandes de remboursements de notes de frais
+    Supprimer des demandes de remboursements de notes de frais
+    Consultation d'un historique des actions effectuées par le trésorier (Valider,Annuler,Modifier)
