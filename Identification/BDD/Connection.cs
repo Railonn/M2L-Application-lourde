@@ -59,7 +59,7 @@ namespace Identification.BDD
                         mdpOk = true;
                     }
                 }
-                //fermeture de la connexion
+                // Fermeture de la connexion
                 connect.Close();
             }
             catch
