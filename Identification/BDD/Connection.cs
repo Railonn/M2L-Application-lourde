@@ -14,6 +14,7 @@ namespace Identification.BDD
     {
         private static MySqlConnection connect;
         public static Boolean ErrorConfiguration = false;
+        public static Boolean ErrorSQL = false;
 
         /// <summary>
         /// Connexion a la base de donnée MYSQL
@@ -60,7 +61,7 @@ namespace Identification.BDD
                         mdpOk = true;
                     }
                 }
-                //fermeture de la connexion
+                // Fermeture de la connexion
                 connect.Close();
             }
             catch
@@ -82,37 +83,46 @@ namespace Identification.BDD
         {
             List<Demandeurs> lesDemandeur = new List<Demandeurs>();
 
-            // Ouverture de la connexion à la base de données
-            connect.Open();
 
-            // Création de la requête
-            MySqlCommand cmd = connect.CreateCommand();
-            cmd.CommandText = "select * from DEMANDEURS";
-
-            // Execution de la requête
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            // Lecture des resultats
-            while (reader.Read())
+            try
             {
-                Demandeurs unDemandeur = new Demandeurs
+            	// Ouverture de la connexion à la base de données
+                connect.Open();
+
+                // Création de la requête
+                MySqlCommand cmd = connect.CreateCommand();
+                cmd.CommandText = "select * from DEMANDEURS";
+
+                // Execution de la requête
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                // Lecture des resultats
+                while (reader.Read())
                 {
-                    AdresseMail = (string)reader["ADRESSE_MAIL"],
-                    Nom = (string)reader["NOM"],
-                    Prenom = (string)reader["PRENOM"],
-                    Rue = (string)reader["RUE"],
-                    Cp = (string)reader["CP"],
-                    Ville = (string)reader["VILLE"],
-                    Password = (string)reader["PASSWORD"],
-                    NumRecu = (string)reader["NUM_RECU"]
-                };
+                    Demandeurs unDemandeur = new Demandeurs
+                    {
+                        AdresseMail = (string)reader["ADRESSE_MAIL"],
+                        Nom = (string)reader["NOM"],
+                        Prenom = (string)reader["PRENOM"],
+                        Rue = (string)reader["RUE"],
+                        Cp = (string)reader["CP"],
+                        Ville = (string)reader["VILLE"],
+                        Password = (string)reader["PASSWORD"],
+                        NumRecu = (string)reader["NUM_RECU"]
+                    };
 
-                lesDemandeur.Add(unDemandeur);
+                    lesDemandeur.Add(unDemandeur);
+                }
             }
-
-            // Fermeture de la connexion
+            catch
+            {
+                ErrorSQL = true;
+            }
+            finally
+            {
+			// Fermeture de la connexion
             connect.Close();
-
+            }
             return lesDemandeur;
         }
 
