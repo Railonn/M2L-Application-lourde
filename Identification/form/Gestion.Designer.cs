@@ -28,35 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.frmGestion = new System.Windows.Forms.ToolStripMenuItem();
+            this.Accueil = new System.Windows.Forms.MenuStrip();
+            this.gestionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.validerLesFraisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consulterLesFraisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generéLeDocumentCERFAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.validerLesFraisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.voirLesModificationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.déconnecterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1.SuspendLayout();
+            this.Accueil.SuspendLayout();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // Accueil
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.frmGestion,
-            this.validerLesFraisToolStripMenuItem,
+            this.Accueil.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gestionToolStripMenuItem,
+            this.voirLesModificationsToolStripMenuItem,
             this.déconnecterToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(398, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.Accueil.Location = new System.Drawing.Point(0, 0);
+            this.Accueil.Name = "Accueil";
+            this.Accueil.Size = new System.Drawing.Size(337, 24);
+            this.Accueil.TabIndex = 0;
+            this.Accueil.Text = "menuStrip1";
             // 
-            // frmGestion
+            // gestionToolStripMenuItem
             // 
-            this.frmGestion.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gestionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.validerLesFraisToolStripMenuItem,
             this.consulterLesFraisToolStripMenuItem,
             this.generéLeDocumentCERFAToolStripMenuItem});
-            this.frmGestion.Name = "frmGestion";
-            this.frmGestion.Size = new System.Drawing.Size(59, 20);
-            this.frmGestion.Text = "Gestion";
+            this.gestionToolStripMenuItem.Name = "gestionToolStripMenuItem";
+            this.gestionToolStripMenuItem.Size = new System.Drawing.Size(105, 20);
+            this.gestionToolStripMenuItem.Text = "Gestion des frais";
+            // 
+            // validerLesFraisToolStripMenuItem
+            // 
+            this.validerLesFraisToolStripMenuItem.Name = "validerLesFraisToolStripMenuItem";
+            this.validerLesFraisToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.validerLesFraisToolStripMenuItem.Text = "Valider les frais";
+            this.validerLesFraisToolStripMenuItem.Click += new System.EventHandler(this.ValiderLesFraisToolStripMenuItem1_Click);
             // 
             // consulterLesFraisToolStripMenuItem
             // 
@@ -72,12 +81,12 @@
             this.generéLeDocumentCERFAToolStripMenuItem.Text = "Generé le document CERFA";
             this.generéLeDocumentCERFAToolStripMenuItem.Click += new System.EventHandler(this.GeneréLeDocumentCERFAToolStripMenuItem_Click);
             // 
-            // validerLesFraisToolStripMenuItem
+            // voirLesModificationsToolStripMenuItem
             // 
-            this.validerLesFraisToolStripMenuItem.Name = "validerLesFraisToolStripMenuItem";
-            this.validerLesFraisToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
-            this.validerLesFraisToolStripMenuItem.Text = "Valider les frais";
-            this.validerLesFraisToolStripMenuItem.Click += new System.EventHandler(this.ValiderLesFraisToolStripMenuItem_Click);
+            this.voirLesModificationsToolStripMenuItem.Name = "voirLesModificationsToolStripMenuItem";
+            this.voirLesModificationsToolStripMenuItem.Size = new System.Drawing.Size(123, 20);
+            this.voirLesModificationsToolStripMenuItem.Text = "Afficher l\'historique";
+            this.voirLesModificationsToolStripMenuItem.Click += new System.EventHandler(this.VoirLesModificationsToolStripMenuItem_Click);
             // 
             // déconnecterToolStripMenuItem
             // 
@@ -90,13 +99,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(398, 218);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.ClientSize = new System.Drawing.Size(337, 181);
+            this.Controls.Add(this.Accueil);
+            this.MainMenuStrip = this.Accueil;
             this.Name = "Gestion";
-            this.Text = "Gestion";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.Text = "M2L - Accueil";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Gestion_FormClosing);
+            this.Accueil.ResumeLayout(false);
+            this.Accueil.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -104,11 +114,12 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem frmGestion;
-        private System.Windows.Forms.ToolStripMenuItem validerLesFraisToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip Accueil;
+        private System.Windows.Forms.ToolStripMenuItem gestionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem consulterLesFraisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generéLeDocumentCERFAToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem voirLesModificationsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem validerLesFraisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem déconnecterToolStripMenuItem;
     }
 }

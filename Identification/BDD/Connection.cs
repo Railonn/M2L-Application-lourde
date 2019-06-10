@@ -13,6 +13,7 @@ namespace Identification.BDD
     public static class Connection
     {
         private static MySqlConnection connect;
+        public static Boolean ErrorConfiguration = false;
 
         /// <summary>
         /// Connexion a la base de donnée MYSQL
@@ -21,10 +22,12 @@ namespace Identification.BDD
         {
             connect = new MySqlConnection
             {
-                //ConnectionString = "SERVER =172.16.106.4; DATABASE=FREDI; UID=william; PASSWORD=3568" ou 1234/151292
-                //ConnectionString = "SERVER=172.16.106.4; DATABASE=FREDI; UID=loic; PASSWORD=3568"
+                //ConnectionString = "SERVER =172.16.106.4; DATABASE=FREDI; UID=loic; PASSWORD=3568"
+                ConnectionString = "SERVER=127.0.0.1; DATABASE=fredi; UID=root; PASSWORD="
             };
+
         }
+
 
         /// <summary>
         /// Connexion a l'application
@@ -36,29 +39,38 @@ namespace Identification.BDD
         {
             bool mdpOk = false;
 
-            // Ouverture de la connexion à la base de données
-            connect.Open();
-
-            // Création de la requête 
-            MySqlCommand cmd = connect.CreateCommand();
-            cmd.CommandText = "select PSWTRESO " +
-                "from CLUBS " +
-                "where NUMERO_LICENCE = '" + login + "'";
-
-            // Execution de la requête
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            // Lecture des resultats
-            while (reader.Read())
+            try
             {
-                if ((string)reader["PSWTRESO"] == mdp)
-                {
-                    mdpOk = true;
-                }
-            }
+                // Ouverture de la connexion à la base de données
+                connect.Open();
 
-            // Fermeture de la connexion et retourne un booléen
-            connect.Close();
+                // Création de la requête 
+                MySqlCommand cmd = connect.CreateCommand();
+                cmd.CommandText = "select PSWTRESO " +
+                    "from CLUBS " +
+                    "where NUMERO_LICENCE = '" + login + "'";
+
+                // Execution de la requête
+                MySqlDataReader reader = cmd.ExecuteReader();
+                // Lecture des resultats
+                while (reader.Read())
+                {
+                    if ((string)reader["PSWTRESO"] == mdp)
+                    {
+                        mdpOk = true;
+                    }
+                }
+                //fermeture de la connexion
+                connect.Close();
+            }
+            catch
+            {
+                ErrorConfiguration = true;
+            }
+            finally
+            {
+                connect.Close();
+            }
             return mdpOk;
         }
 
@@ -349,6 +361,94 @@ namespace Identification.BDD
             cmd.CommandText = "update LIGNES_FRAIS " +
                 "set LIGNEVALIDE = 0 " +
                 "where ADRESSE_MAIL = '" + leMail + "' and DATE_FRAIS = '" + laDate + "'";
+
+            // Represente le nombre de ligne affecter et execution 
+            int nbAJout = cmd.ExecuteNonQuery();
+
+            // Fermeture de la connexion
+            connect.Close();
+
+            return nbAJout;
+        }
+
+        /// <summary>
+        /// Supprime une ligne de frais
+        /// </summary>
+        /// <param name="kmParcourue">km validé</param>
+        /// <param name="coutPeage">peage validé</param>
+        /// <param name="coutRepas">repas validé</param>
+        /// <param name="coutHeberge">hebergement validé</param>
+        /// <param name="mail">mail du demandeur</param>
+        /// <param name="date">date de la demande</param>
+        /// <returns>le nombre de ligne mise a jours</returns>
+        public static int SupprimerLigneFrais(string mail, string laDate)
+        {
+                // Si il y a une date, alors on adapte en format MySql
+                if (laDate != "")
+                    laDate = laDate.Substring(6, 4) + "-" + laDate.Substring(3, 2) + "-" + laDate.Substring(0, 2);
+
+                // Ouverture de la connexion à la base de données
+                connect.Open();
+
+                // Création de la requête
+                MySqlCommand cmd = connect.CreateCommand();
+                cmd.CommandText = "delete from LIGNES_FRAIS WHERE ADRESSE_MAIL = '" + mail + "'AND DATE_FRAIS = '" + laDate +"';";
+
+                // Represente le nombre de ligne affecter et execution 
+                int nbAJout = cmd.ExecuteNonQuery();
+
+                // Fermeture de la connexion
+                connect.Close();
+
+                return nbAJout;
+        }
+
+        public static List<HistoriqueActions> GetLesActions()
+        {
+            List<HistoriqueActions> lesActions = new List<HistoriqueActions>();
+
+            // Ouverture de la connexion à la base de données
+            connect.Open();
+
+            // Création de la requête
+            MySqlCommand cmd = connect.CreateCommand();
+            cmd.CommandText = "select * from HISTORIQUE_ACTIONS";
+
+            // Execution de la requête
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            // Lecture des resultats
+            while (reader.Read())
+            {
+                HistoriqueActions uneAction = new HistoriqueActions
+                {
+                    AdresseMail = (string)reader["ADRESSE_MAIL"],
+                    DateFraisModif = (DateTime)reader["DATE_FRAIS"],
+                    ActionRealisée = (string)reader["ACTION"],
+
+                };
+
+                lesActions.Add(uneAction);
+            }
+
+            // Fermeture de la connexion
+            connect.Close();
+
+            return lesActions;
+        }
+
+     
+        public static int ActionAjouter(string mail_demandeur, string laDate, string action)
+        {
+            // Si il y a une date, alors on adapte en format MySql
+            if (laDate != "")
+                laDate = laDate.Substring(6, 4) + "-" + laDate.Substring(3, 2) + "-" + laDate.Substring(0, 2);
+
+            connect.Open();
+
+            MySqlCommand cmd = connect.CreateCommand();
+            cmd.CommandText = "INSERT INTO historique_actions(ADRESSE_MAIL,DATE_FRAIS,ACTION) VALUES ('" + mail_demandeur + "','" + laDate + "','" + action + "');";
+            //MessageBox.Show(cmd.CommandText);
 
             // Represente le nombre de ligne affecter et execution 
             int nbAJout = cmd.ExecuteNonQuery();

@@ -17,15 +17,9 @@ namespace Identification.form
             InitializeComponent();
         }
 
-        private void ValiderLesFraisToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FrmValideFrais frmLigne = new FrmValideFrais();
-            frmLigne.ShowDialog();
-        }
-
         private void ConsulterLesFraisToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            frmConsultation frmConsultation = new frmConsultation();
+            FrmConsultation frmConsultation = new FrmConsultation();
             frmConsultation.ShowDialog();
         }
 
@@ -37,9 +31,26 @@ namespace Identification.form
 
         private void DéconnecterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Close();
+            Hide();
             FrmIdentification frmIdentification = new FrmIdentification();
             frmIdentification.Show();
+        }
+
+        private void VoirLesModificationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HistoriqueDesValidations frmHistorique = new HistoriqueDesValidations();
+            frmHistorique.Show();
+        }
+
+        private void ValiderLesFraisToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FrmValideFrais frmLigne = new FrmValideFrais();
+            frmLigne.ShowDialog();
+        }
+
+        private void Gestion_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

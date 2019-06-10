@@ -1,6 +1,6 @@
 ﻿namespace Identification.form
 {
-    partial class frmConsultation
+    partial class FrmConsultation
     {
         /// <summary>
         /// Required designer variable.
@@ -100,7 +100,7 @@
             this.lvFrais.TabIndex = 0;
             this.lvFrais.UseCompatibleStateImageBehavior = false;
             this.lvFrais.View = System.Windows.Forms.View.Details;
-            this.lvFrais.Click += new System.EventHandler(this.lvFrais_SelectedIndexChanged);
+            this.lvFrais.Click += new System.EventHandler(this.LvFrais_SelectedIndexChanged);
             // 
             // frmConsultation
             // 

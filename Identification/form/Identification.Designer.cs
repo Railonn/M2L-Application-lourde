@@ -73,7 +73,7 @@
             // 
             // btnValide
             // 
-            this.btnValide.Location = new System.Drawing.Point(80, 142);
+            this.btnValide.Location = new System.Drawing.Point(60, 153);
             this.btnValide.Name = "btnValide";
             this.btnValide.Size = new System.Drawing.Size(75, 23);
             this.btnValide.TabIndex = 4;
@@ -83,7 +83,7 @@
             // 
             // FermerApplication
             // 
-            this.FermerApplication.Location = new System.Drawing.Point(161, 142);
+            this.FermerApplication.Location = new System.Drawing.Point(141, 153);
             this.FermerApplication.Name = "FermerApplication";
             this.FermerApplication.Size = new System.Drawing.Size(75, 23);
             this.FermerApplication.TabIndex = 5;
@@ -103,7 +103,7 @@
             this.Controls.Add(this.lblLogin);
             this.Controls.Add(this.txtLogin);
             this.Name = "FrmIdentification";
-            this.Text = "Identification";
+            this.Text = "M2L - CONNEXION";
             this.ResumeLayout(false);
             this.PerformLayout();
 

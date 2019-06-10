@@ -11,18 +11,18 @@ using System.Windows.Forms;
 
 namespace Identification.form
 {
-    public partial class frmConsultation : Form
+    public partial class FrmConsultation : Form
     {
         private List<Demandeurs> lesDemandeurs = new List<Demandeurs>();
         private List<LigneFrais> lesFrais = new List<LigneFrais>();
         private List<Motif> lesMotifs = new List<Motif>();   
 
-        public frmConsultation()
+        public FrmConsultation()
         {
             InitializeComponent();
 
-            this.initiliseList();
-            this.setListView();
+            this.InitiliseList();
+            this.SetListView();
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Identification.form
         ///     lesFrais, lesMotifs, lesDemandeurs
         /// via la base de données
         /// </summary>
-        private void initiliseList()
+        private void InitiliseList()
         {
             Connection.Init();
 
@@ -45,7 +45,7 @@ namespace Identification.form
         /// et de la date de lbDateDemande
         /// </summary>
         /// <returns>Renvoie une ligne si trouver</returns>
-        private LigneFrais rechercheLigneFrais()
+        private LigneFrais RechercheLigneFrais()
         {
             LigneFrais laLigne = null;
 
@@ -71,7 +71,7 @@ namespace Identification.form
         /// </summary>
         /// <param name="laLigne">Ligne de frais</param>
         /// <returns>return la motif si trouver</returns>
-        private Motif rechercheMotif(LigneFrais laLigne)
+        private Motif RechercheMotif(LigneFrais laLigne)
         {
             Motif leMotif = null;
 
@@ -97,7 +97,7 @@ namespace Identification.form
         /// </summary>
         /// <param name="laLigne"></param>
         /// <returns></returns>
-        private Demandeurs rechercheDemandeur(LigneFrais laLigne)
+        private Demandeurs RechercheDemandeur(LigneFrais laLigne)
         {
             Demandeurs leDemandeur = null;
 
@@ -123,7 +123,7 @@ namespace Identification.form
         /// Crée les groupe
         /// ajoute le contenue des demandes
         /// </summary>
-        private void setListView()
+        private void SetListView()
         {
             //nettoie les information contenue dans le listView lvFrais
             this.lvFrais.Groups.Clear();
@@ -137,7 +137,7 @@ namespace Identification.form
             //creation des groupe un seul par mail
             foreach (LigneFrais uneLigne in lesFrais)
             {
-                unDemandeurs = this.rechercheDemandeur(uneLigne);
+                unDemandeurs = this.RechercheDemandeur(uneLigne);
                 ListViewGroup nouveauGroupe = new ListViewGroup(uneLigne.AdresseMail, unDemandeurs.Nom.ToUpper() + " " + unDemandeurs.Prenom);
 
                 if(!lesGroupes.Contains(nouveauGroupe.Name))
@@ -155,7 +155,7 @@ namespace Identification.form
                     {
                         ListViewItem nouveauItem = new ListViewItem(uneLigne.DateFrais.ToShortDateString(), unGroupe);
 
-                        nouveauItem.SubItems.Add(new ListViewItem.ListViewSubItem(nouveauItem, this.rechercheMotif(uneLigne).Libelle));
+                        nouveauItem.SubItems.Add(new ListViewItem.ListViewSubItem(nouveauItem, this.RechercheMotif(uneLigne).Libelle));
                         nouveauItem.SubItems.Add(new ListViewItem.ListViewSubItem(nouveauItem, uneLigne.Trajet));
                         nouveauItem.SubItems.Add(new ListViewItem.ListViewSubItem(nouveauItem, uneLigne.KmOk + "/" + uneLigne.Km));
                         nouveauItem.SubItems.Add(new ListViewItem.ListViewSubItem(nouveauItem, uneLigne.CoutPeageOk + "/" + uneLigne.CoutPeage));
@@ -168,7 +168,7 @@ namespace Identification.form
             }
         }
 
-        private void lvFrais_SelectedIndexChanged(object sender, EventArgs e)
+        private void LvFrais_SelectedIndexChanged(object sender, EventArgs e)
         {
             string mail = "";
             string date = "";
@@ -184,17 +184,17 @@ namespace Identification.form
             if (resultat == DialogResult.Yes)
             {
                 int ligneAJouter = Connection.AnnuleLigneFrais(mail, date);
+                int actionAjouter = Connection.ActionAjouter(mail, date, "Annuler");
 
                 if (ligneAJouter != 0)
                 {
-                    MessageBox.Show("L'annulation a bien été bien prise en compte");
-
+                    MessageBox.Show("L'annulation a bien été bien prise en compte", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     //actualisation des liste et du contenue afficher
-                    this.initiliseList();
-                    this.setListView();
+                    this.InitiliseList();
+                    this.SetListView();
                 }
                 else
-                    MessageBox.Show("Une erreur c'est produite");
+                    MessageBox.Show("Une erreur s'est produite");
             }
         }
     }

@@ -262,17 +262,52 @@ namespace Identification.form
         /// <param name="e"></param>
         private void BtnValider_Click(object sender, EventArgs e)
         {
-            DialogResult resultat = MessageBox.Show("Confirmer la demande d'un demande d'un montant de " + this.txtTotalValide.Text + "€ ?", "Validation", MessageBoxButtons.YesNo);
-
-            if (resultat == DialogResult.Yes)
+            if (lbDemandeur.SelectedIndex > -1)
             {
-                if (lbDemandeur.Items.Count > 0)
+                if (lbDateDemande.SelectedIndex > -1)
                 {
-                    int ligneAJouter = Connection.ValidationLigneFrais((long)this.numKmValide.Value, this.numPeageValide.Value, this.numRepasValide.Value, this.numHebergementValide.Value, this.lbDemandeur.Text, this.lbDateDemande.Text);
-
-                    if (ligneAJouter != 0)
+                    DialogResult resultat = MessageBox.Show("Confirmer la demande d'un demande d'un montant de " + this.txtTotalValide.Text + "€ ?", "Validation", MessageBoxButtons.YesNo);
+                    if (resultat == DialogResult.Yes)
                     {
-                        MessageBox.Show("La validation a bien été bien prise en compte");
+                        int ligneAJouter = Connection.ValidationLigneFrais((long)this.numKmValide.Value, this.numPeageValide.Value, this.numRepasValide.Value, this.numHebergementValide.Value, this.lbDemandeur.Text, this.lbDateDemande.Text);
+                        int actionAjouter = Connection.ActionAjouter(this.lbDemandeur.Text, this.lbDateDemande.Text, this.btnValider.Text);
+
+                        if (ligneAJouter != 0)
+                        {
+                            MessageBox.Show("La validation a bien été bien prise en compte");
+
+                            // Mise a jour des listes 
+                            this.ChargerLesFrais();
+                            this.ChargerLesDemandeurs();
+
+                            // Efface les informations
+                            this.lbDateDemande.Items.Clear();
+                            this.ClearInformation();
+                        }
+                        else
+                            MessageBox.Show("Une erreur de validation s'est produite.");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Aucune demande de remboursement de notes de frais n'a était effectuée.", "Validation impossible", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Bt_supprimer_Click(object sender, EventArgs e)
+        {
+            if (lbDemandeur.SelectedIndex > -1)
+            {
+                if (lbDateDemande.SelectedIndex > -1)
+                {
+                    int ligneSupprimer = Connection.SupprimerLigneFrais(this.lbDemandeur.Text, this.lbDateDemande.Text);
+                    int actionAjouter = Connection.ActionAjouter(this.lbDemandeur.Text, this.lbDateDemande.Text, this.bt_supprimer.Text);
+
+                    if (ligneSupprimer != 0)
+                    {
+
+                        MessageBox.Show("Vous avez supprimé la demande de remboursement de frais du " + this.lbDateDemande.Text);
 
                         // Mise a jour des listes 
                         this.ChargerLesFrais();
@@ -285,10 +320,10 @@ namespace Identification.form
                     else
                         MessageBox.Show("Une erreur de validation s'est produite.");
                 }
-                else
-                {
-                    MessageBox.Show("Aucune demande de remboursement de notes de frais n'a était effectuée.", "Validation impossible", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            else
+            {
+                MessageBox.Show("Aucune demande de remboursement de notes de frais n'a était effectuée.", "Impossible de supprimer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

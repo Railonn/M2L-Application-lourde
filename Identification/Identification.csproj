@@ -62,6 +62,7 @@
     <Compile Include="BDD\Clubs.cs" />
     <Compile Include="BDD\Connection.cs" />
     <Compile Include="BDD\Demandeurs.cs" />
+    <Compile Include="BDD\HistoriqueActions.cs" />
     <Compile Include="BDD\Lien.cs" />
     <Compile Include="BDD\LigneFrais.cs" />
     <Compile Include="BDD\ligues.cs" />
@@ -77,6 +78,12 @@
     </Compile>
     <Compile Include="form\Gestion.Designer.cs">
       <DependentUpon>Gestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="form\HistoriqueDesValidations.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\HistoriqueDesValidations.Designer.cs">
+      <DependentUpon>HistoriqueDesValidations.cs</DependentUpon>
     </Compile>
     <Compile Include="form\Identification.cs">
       <SubType>Form</SubType>
@@ -103,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\Gestion.resx">
       <DependentUpon>Gestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\HistoriqueDesValidations.resx">
+      <DependentUpon>HistoriqueDesValidations.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\Identification.resx">
       <DependentUpon>Identification.cs</DependentUpon>

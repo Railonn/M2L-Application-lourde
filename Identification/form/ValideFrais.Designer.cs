@@ -57,6 +57,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.txtTotalDemande = new System.Windows.Forms.TextBox();
             this.txtTotalValide = new System.Windows.Forms.TextBox();
+            this.bt_supprimer = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numKmValide)).BeginInit();
@@ -196,6 +197,7 @@
             this.tableLayoutPanel2.Controls.Add(this.label11, 0, 5);
             this.tableLayoutPanel2.Controls.Add(this.txtTotalDemande, 1, 5);
             this.tableLayoutPanel2.Controls.Add(this.txtTotalValide, 2, 5);
+            this.tableLayoutPanel2.Controls.Add(this.bt_supprimer, 1, 6);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(276, 8);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 7;
@@ -366,15 +368,25 @@
             this.txtTotalValide.TabIndex = 19;
             this.txtTotalValide.Text = "0.00";
             // 
-            // frmValideFrais
+            // bt_supprimer
+            // 
+            this.bt_supprimer.Location = new System.Drawing.Point(143, 146);
+            this.bt_supprimer.Name = "bt_supprimer";
+            this.bt_supprimer.Size = new System.Drawing.Size(83, 23);
+            this.bt_supprimer.TabIndex = 20;
+            this.bt_supprimer.Text = "Supprimer";
+            this.bt_supprimer.UseVisualStyleBackColor = true;
+            this.bt_supprimer.Click += new System.EventHandler(this.Bt_supprimer_Click);
+            // 
+            // FrmValideFrais
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(615, 185);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "frmValideFrais";
-            this.Text = "Validation d\'une ligne de frais";
+            this.Name = "FrmValideFrais";
+            this.Text = "M2L- Validation d\'une ligne de frais";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -418,5 +430,6 @@
         private System.Windows.Forms.TextBox txtTotalValide;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button btnValider;
+        private System.Windows.Forms.Button bt_supprimer;
     }
 }

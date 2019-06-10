@@ -30,8 +30,10 @@ namespace Identification
             if (Connection.MdpConnection(txtLogin.Text, txtMdp.Text))
                 this.OpenGestion();
             else
-                MessageBox.Show("Vos identifiant sont erronés.", "Connexion impossible", MessageBoxButtons.OK, MessageBoxIcon.Error);
-    
+                if(Connection.ErrorConfiguration == true)
+                    MessageBox.Show("Impossible de se connecter à la base de données !", "Connexion impossible", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
+                    MessageBox.Show("Vos identifiant sont erronés.", "Connexion impossible", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         // Permet d'ouvrir le formulaire Gestion
